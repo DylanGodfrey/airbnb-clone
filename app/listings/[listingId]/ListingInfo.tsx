@@ -9,20 +9,20 @@ import ListingCategory from "./ListingCategory";
 import dynamic from "next/dynamic";
 
 const Map = dynamic(() => import("../../components/Map"), {
-    ssr:false
+  ssr: false,
 });
 
 interface ListingInfoProps {
   user: SafeUser;
+  description: string;
+  guestCount: number;
+  roomCount: number;
+  bathroomCount: number;
   category: {
     icon: IconType;
     label: string;
-    description: string
-  } | undefined
-  description: string;
-  roomCount: number;
-  guestCount: number;
-  bathroomCount: number;
+    description: string;
+  } | undefined;
   locationValue: string;
 }
 
@@ -58,12 +58,11 @@ const ListingInfo: React.FC<ListingInfoProps> = (
         </div>
       </div>
       <hr />
-      { category && (
-        <ListingCategory 
-        icon={category.icon}
-        label={category.label}
-        description={category.description}
-        
+      {category && (
+        <ListingCategory
+          icon={category.icon}
+          label={category?.label}
+          description={category?.description}
         />
       )}
       <hr />
@@ -71,10 +70,9 @@ const ListingInfo: React.FC<ListingInfoProps> = (
         {description}
       </div>
       <hr />
-    <Map
+      <Map
         center={coordinates}
-    />
-        
+      />
     </div>
   );
 };

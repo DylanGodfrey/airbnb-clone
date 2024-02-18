@@ -1,6 +1,6 @@
 "use client";
 
-import { SafeReservation, SafeUser } from "../types";
+import { SafeReservation, SafeUser } from "@/app/types";
 import Container from "../components/Container";
 import Heading from "../components/Heading";
 import { useRouter } from "next/navigation";
@@ -33,6 +33,7 @@ const ReservationClient: React.FC<ReservationClientProps> = (
       .finally(() => {
         setDeletingId("");
       });
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [router]);
 
   return (

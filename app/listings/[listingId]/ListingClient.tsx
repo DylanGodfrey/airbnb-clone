@@ -2,7 +2,7 @@
 
 import Container from "@/app/components/Container";
 import { categories } from "@/app/components/navbar/Categories";
-import { SafeListing, SafeReservation, SafeUser } from "@/app/types";
+import { User, Listing, Reservation } from "@prisma/client";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import ListingHead from "./ListingHead";
 import ListingInfo from "./ListingInfo";
@@ -21,9 +21,9 @@ const initialDateRange = {
 };
 
 interface ListingClientProps {
-  listing: SafeListing & { user: SafeUser; };
-  currentUser?: SafeUser | null;
-  reservations?: SafeReservation[];
+  listing: Listing & { user: User; };
+  currentUser?: User | null;
+  reservations?: Reservation[];
 }
 
 const ListingClient: React.FC<ListingClientProps> = (
@@ -48,6 +48,7 @@ const ListingClient: React.FC<ListingClientProps> = (
   const [isLoading, setisLoading] = useState(false);
   const [totalPrice, setTotalPrice] = useState(listing.price);
   const [dateRange, setDateRange] = useState<Range>(initialDateRange);
+
 
   const onCreateReservation = useCallback(() => {
     if (!currentUser) {
@@ -98,7 +99,7 @@ const ListingClient: React.FC<ListingClientProps> = (
   }, [dateRange, listing.price])
 
   const category = useMemo(() => {
-    categories.find((item) => item.label === listing.category);
+    return categories.find((item) => item.label === listing.category);
   }, [listing.category]);
 
   return (
